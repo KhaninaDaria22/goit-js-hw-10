@@ -7,12 +7,14 @@ const refs = {
     select: document.querySelector('.breed-select'),
     loader: document.querySelector('.loader'),
     catInfo: document.querySelector('.cat-info'),
+    errorCat: document.querySelector('.error'),
 };
 
 const IS_HIDDEN = 'is-hidden';
 
 refs.select.classList.add(IS_HIDDEN);
 refs.catInfo.classList.add(IS_HIDDEN);
+refs.errorCat.classList.add(IS_HIDDEN);
 
 refs.select.addEventListener('change', selectChangeHandler);
 
@@ -22,6 +24,7 @@ function selectChangeHandler(e) {
     const selectedCatIndex = e.currentTarget.selectedIndex;
     const selectedId = e.currentTarget[selectedCatIndex].value;
 
+    
     refs.loader.classList.remove(IS_HIDDEN);
     refs.catInfo.classList.add(IS_HIDDEN);
     refs.catInfo.innerHTML = '';
@@ -57,8 +60,8 @@ function showFetchedCatBreed(selectedId) {
     fetchCatByBreed(selectedId)
         .then(cat => {
             refs.loader.classList.add(IS_HIDDEN);
-            refs.catsInfo.classList.remove(IS_HIDDEN);
-            refs.catsInfo.innerHTML = createCatMarkup(cat.data[0]);
+            refs.catInfo.classList.remove(IS_HIDDEN);
+            refs.catInfo.innerHTML = createCatMarkup(cat.data[0]);
         })
         .catch(() => {
             refs.catsInfo.classList.add(IS_HIDDEN);
