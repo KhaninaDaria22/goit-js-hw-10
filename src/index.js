@@ -15,9 +15,10 @@ const IS_HIDDEN = 'is-hidden';
 refs.select.classList.add(IS_HIDDEN); 
 refs.catInfo.classList.add(IS_HIDDEN);
 refs.errorCat.classList.add(IS_HIDDEN);
-refs.loadar.classList.add(IS_HIDDEN);
+refs.loader.classList.add(IS_HIDDEN);
 
 refs.select.addEventListener('change', selectChangeHandler);
+
 
 showFetchedBreeds();
 
@@ -68,7 +69,7 @@ function showFetchedCatBreed(selectedId) {
             refs.catInfo.innerHTML = createCatMarkup(cat.data[0]);
         })
         .catch(() => {
-            refs.select.classList.add(IS_HIDDEN);
+            refs.select.classList.remove(IS_HIDDEN);
             refs.loadar.classList.add(IS_HIDDEN);
             Notiflix.Notify.failure(
                 'Oops! Something went wrong! Try reloading the page!'
