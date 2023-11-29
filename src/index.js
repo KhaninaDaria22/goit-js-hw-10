@@ -4,7 +4,7 @@ import SlimSelect from 'slim-select';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const refs = {
-    select: document.querySelector('.breed-select'),
+    select: document.querySelector('.breed-select'), 
     loader: document.querySelector('.loader'),
     catInfo: document.querySelector('.cat-info'),
     errorCat: document.querySelector('.error'),
@@ -12,9 +12,10 @@ const refs = {
 
 const IS_HIDDEN = 'is-hidden';
 
-refs.select.classList.add(IS_HIDDEN);
+refs.select.classList.add(IS_HIDDEN); 
 refs.catInfo.classList.add(IS_HIDDEN);
 refs.errorCat.classList.add(IS_HIDDEN);
+refs.loadar.classList.add(IS_HIDDEN);
 
 refs.select.addEventListener('change', selectChangeHandler);
 
@@ -51,8 +52,11 @@ function showFetchedBreeds() {
             refs.select.classList.remove(IS_HIDDEN);
         })
         .catch(() => {
-            refs.loader.classList.add(IS_HIDDEN);
-            Notify.warning('Failed to request data! Choose another breed.');
+            refs.loadar.classList.add(IS_HIDDEN);
+            refs.select.classList.add(IS_HIDDEN); 
+            Notiflix.Notify.failure(
+                'Oops! Something went wrong! Try reloading the page!'
+              );
         });
 }
 
@@ -64,8 +68,11 @@ function showFetchedCatBreed(selectedId) {
             refs.catInfo.innerHTML = createCatMarkup(cat.data[0]);
         })
         .catch(() => {
-            refs.catsInfo.classList.add(IS_HIDDEN);
-            Notify.warning('Failed to request data! Choose another breed.');
+            refs.select.classList.add(IS_HIDDEN);
+            refs.loadar.classList.add(IS_HIDDEN);
+            Notiflix.Notify.failure(
+                'Oops! Something went wrong! Try reloading the page!'
+              );
         });
 }
 
